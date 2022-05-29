@@ -1,0 +1,58 @@
+﻿@model PersonalBusinessManagement.Data.ExchangeRates.Currency
+
+@*<p>@Model.UpdateDate</p>*@
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-5">
+            <h2 class="text-primary">Swedish Krona</h2>
+        </div>
+        <div class="col-6 text-end">
+            <a asp-controller="Api" asp-action="UpdateExchangeRate"
+               class="btn btn-primary mx-3">Update</a>
+            <a href="https://www.currencyconverterapi.com/server-status" 
+               target="_blank" class=" btn btn-outline-dark mx-3">Server Status</a>
+            <br /> <br />
+            <h6>Updated: @Model.UpdateDate</h6>
+        </div>
+    </div>
+    <br />
+    <table class="table table-bordered table-striped text-center">
+        <thead>
+            <tr>
+                <th>
+                    Currency
+                </th>
+                <th>
+                    Exchange Rate
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>USD</td>
+                <td>@Model.USD_SEK</td>
+            </tr>
+            <tr>
+                <td>EUR</td>
+                <td>@Model.EUR_SEK</td>
+            </tr>
+            <tr>
+                <td>GBP</td>
+                <td>@Model.GBP_SEK</td>
+            </tr>
+            <tr>
+                <td>CHF</td>
+                <td>@Model.CHF_SEK</td>
+            </tr>
+            <tr>
+                <td>CAD</td>
+                <td>@Model.CAD_SEK</td>
+            </tr>
+            <tr>
+                <td>JPY</td>
+                <td>@Model.JPY_SEK</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

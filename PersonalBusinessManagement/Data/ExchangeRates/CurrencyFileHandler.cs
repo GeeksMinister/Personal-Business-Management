@@ -5,17 +5,19 @@ namespace PersonalBusinessManagement.Data.ExchangeRates;
 
 public static class CurrencyFileHandler
 {
-    private const string currencyFile = "Data\\ExchangeRates\\ExchangeRates.json";
+    private const string ExchangeRatesPath = "Data\\ExchangeRates\\ExchangeRates.json";
+    private const string apiKeyPath = "Data\\ExchangeRates\\free - Copy.currconv.txt";
+    private const string errorReportPath = "Data\\ExchangeRates\\ErrorReport.txt";
     public static Currency? GetExchangeRates()
     {
-        var fileContent = File.ReadAllText(currencyFile);
+        var fileContent = File.ReadAllText(ExchangeRatesPath);
         var jsonObj = JsonSerializer.Deserialize<IEnumerable<Currency>>(fileContent);
         return jsonObj?.FirstOrDefault();
     }
 
     public static async Task<string[]> GenerateLinks()
     {
-        var apiKey = await File.ReadAllTextAsync("free - Copy.currconv.txt");
+        var apiKey = await File.ReadAllTextAsync(apiKeyPath);
         return new[]
         {
             "https://free.currconv.com/api/v7/convert?q=USD_SEK,EUR_SEK&compact=ultra&apiKey=" + apiKey,
@@ -36,11 +38,11 @@ public static class CurrencyFileHandler
                 var response = JObject.Parse(await client.GetStringAsync(getRequests[i]));
                 json.Merge(response);
             }
-            await File.WriteAllTextAsync("ExchangeRates.json", $"[\n{json}\n]");
+            await File.WriteAllTextAsync(ExchangeRatesPath, $"[\n{json}\n]");
         }
         catch (Exception e)
         {
-            File.WriteAllText($"ErrorReport.txt", "Error!  Couldn't update or write" +
+            File.WriteAllText($"{errorReportPath}", "Error!  Couldn't update or write" +
                  $" successfully {DateTime.Now}\n{e.Message}\n\n");
         }
     }

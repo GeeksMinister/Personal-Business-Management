@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PersonalBusinessManagement.Data.ExchangeRates;
 using PersonalBusinessManagement.Models;
 using System.Diagnostics;
 
@@ -18,15 +17,6 @@ namespace PersonalBusinessManagement.Controllers
         {
             return View();
         }
-
-        public IActionResult Api()
-        {
-            return View(CurrencyFileHandler.GetExchangeRates());
-        }
-
-
-
-
 
 
 
