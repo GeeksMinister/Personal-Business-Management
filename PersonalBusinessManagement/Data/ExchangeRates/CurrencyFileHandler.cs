@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using System.Text.Json;
+using PersonalBusinessManagement.Models;
 
 namespace PersonalBusinessManagement.Data.ExchangeRates;
 
@@ -8,11 +9,11 @@ public static class CurrencyFileHandler
     private const string ExchangeRatesPath = "Data\\ExchangeRates\\ExchangeRates.json";
     private const string apiKeyPath = "Data\\ExchangeRates\\free - Copy.currconv.txt";
     private const string errorReportPath = "Data\\ExchangeRates\\ErrorReport.txt";
-    public static Currency? GetExchangeRates()
+    public static async Task<Currency?> GetExchangeRates()
     {
-        var fileContent = File.ReadAllText(ExchangeRatesPath);
-        var jsonObj = JsonSerializer.Deserialize<IEnumerable<Currency>>(fileContent);
-        return jsonObj?.FirstOrDefault();
+        var fileContent = await File.ReadAllTextAsync(ExchangeRatesPath);
+        var exchangeRate = JsonSerializer.Deserialize<IEnumerable<Currency>>(fileContent);
+        return exchangeRate?.FirstOrDefault();
     }
 
     public static async Task<string[]> GenerateLinks()
@@ -30,7 +31,7 @@ public static class CurrencyFileHandler
     {
         try
         {
-            var client = new HttpClient();
+            using var client = new HttpClient();
             var getRequests = await GenerateLinks();
             JObject json = JObject.Parse($"{{ \"updated\": \"{DateTime.Now}\"}}");
             for (int i = 0; i < getRequests.Length; i++)
@@ -42,8 +43,8 @@ public static class CurrencyFileHandler
         }
         catch (Exception e)
         {
-            File.WriteAllText($"{errorReportPath}", "Error!  Couldn't update or write" +
-                 $" successfully {DateTime.Now}\n{e.Message}\n\n");
+            await File.AppendAllTextAsync($"\n\n{errorReportPath}", "Error!  Couldn't update or write" +
+                 $" successfully {DateTime.Now}\n{e.Message}");
         }
     }
 

@@ -361,3 +361,5 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/PersonalBusinessManagement/Data/ExchangeRates/ErrorReport.txt
+/PersonalBusinessManagement/Data/GithubRepos/ErrorReport.txt

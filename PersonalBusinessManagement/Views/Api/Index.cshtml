@@ -1,19 +1,17 @@
-﻿@model PersonalBusinessManagement.Data.ExchangeRates.Currency
-
-@*<p>@Model.UpdateDate</p>*@
+﻿@model (PersonalBusinessManagement.Models.Currency currency, List<PersonalBusinessManagement.Models.GithubRepo> repos)
 
 <div class="container p-3">
     <div class="row pt-4">
         <div class="col-5">
-            <h2 class="text-primary">Swedish Krona</h2>
+            <h3 class="text-primary">Exchange rates for Swedish krona</h3>
         </div>
         <div class="col-6 text-end">
             <a asp-controller="Api" asp-action="UpdateExchangeRate"
                class="btn btn-primary mx-3">Update</a>
-            <a href="https://www.currencyconverterapi.com/server-status" 
+            <a href="https://www.currencyconverterapi.com/server-status"
                target="_blank" class=" btn btn-outline-dark mx-3">Server Status</a>
             <br /> <br />
-            <h6>Updated: @Model.UpdateDate</h6>
+            <h6>Updated: @Model.currency.UpdateDate</h6>
         </div>
     </div>
     <br />
@@ -31,28 +29,49 @@
         <tbody>
             <tr>
                 <td>USD</td>
-                <td>@Model.USD_SEK</td>
+                <td>@Model.currency.USD_SEK</td>
             </tr>
             <tr>
                 <td>EUR</td>
-                <td>@Model.EUR_SEK</td>
+                <td>@Model.currency.EUR_SEK</td>
             </tr>
             <tr>
                 <td>GBP</td>
-                <td>@Model.GBP_SEK</td>
-            </tr>
-            <tr>
-                <td>CHF</td>
-                <td>@Model.CHF_SEK</td>
+                <td>@Model.currency.GBP_SEK</td>
             </tr>
             <tr>
                 <td>CAD</td>
-                <td>@Model.CAD_SEK</td>
+                <td>@Model.currency.CAD_SEK</td>
+            </tr>
+            <tr>
+                <td>CHF</td>
+                <td>@Model.currency.CHF_SEK</td>
             </tr>
             <tr>
                 <td>JPY</td>
-                <td>@Model.JPY_SEK</td>
+                <td>@Model.currency.JPY_SEK</td>
             </tr>
         </tbody>
     </table>
+    <br />
+    <div class="col-5">
+        <h3 class="text-primary">Github Repositories</h3>
+    </div>
+
+    <table class="table table-bordered table-striped text-center">
+        <tbody>
+            @foreach (var item in Model.repos)
+            {
+                @if (item.Description == null) continue;
+                <tr>
+                    <th>@item.Name</th>
+                </tr>
+                <tr>
+                    <td>@item.Description</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
 </div>

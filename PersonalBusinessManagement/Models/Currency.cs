@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace PersonalBusinessManagement.Data.ExchangeRates;
+namespace PersonalBusinessManagement.Models;
 
 public sealed class Currency
 {
