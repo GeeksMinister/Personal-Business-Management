@@ -160,12 +160,20 @@ namespace PersonalBusinessManagement.Controllers
           return (_context.Project?.Any(e => e.Id == id)).GetValueOrDefault();
         }
 
-        public async Task<IActionResult> Search(string searchPhrase = "Nuclear Power")
+
+        public IActionResult Search()
+        {
+            return View();
+        }
+
+        public async Task<IActionResult> ShowSearchResults(string searchPhrase)
         {
 #pragma warning disable CS8602
             var result = await _context.Project.Where(
                 proj => proj.Name.Contains(searchPhrase) || proj.Description.Contains(searchPhrase)).ToListAsync();
             return View(result);
         }
+
+
     }
 }

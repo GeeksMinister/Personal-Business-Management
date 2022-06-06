@@ -1,9 +1,37 @@
-﻿@model List<PersonalBusinessManagement.Models.Project>
+﻿@model PersonalBusinessManagement.Models.Project
+@{
+    ViewData["Title"] = "Search";
+}
 
-    <div>
-        @foreach (var item in Model)
-        {
-            <p>@item.Name</p>
-            <p>@item.Description</p>
+<h1>Projects</h1>
+<br /> <br />
+@*<h4>Search</h4>
+<hr />*@
+<div class="row">
+    <script>
+        function checkInput() {
+            var field = document.querySelector("#search").value;
+            if (field.trim() == "") {
+                alert("Please fill in the search field");
+                return false;
+            }
         }
+    </script>
+    <div class="col-md-4">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <form asp-controller="Projects" asp-action="ShowSearchResults" onsubmit="return checkInput()">
+            <div class="form-group">
+                <label for="searchPhrase" class="control-label">Search</label>
+                <input id="search" name="searchPhrase" class="form-control mb-2" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Search" class="btn btn-primary" />
+            </div>
+        </form>
     </div>
+</div>
+
+<div>
+    <br /><br />
+    <a asp-action="Index">Back to List</a>
+</div>
