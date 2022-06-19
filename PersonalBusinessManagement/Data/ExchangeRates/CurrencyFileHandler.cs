@@ -43,8 +43,8 @@ public static class CurrencyFileHandler
         }
         catch (Exception e)
         {
-            await File.AppendAllTextAsync($"\n\n{errorReportPath}", "Error!  Couldn't update or write" +
-                 $" successfully {DateTime.Now}\n{e.Message}");
+            await File.AppendAllTextAsync($"{errorReportPath}", "Error!  Couldn't update or write" +
+                 $" successfully {DateTime.Now}\n{e.Message}\n\n");
         }
     }
 

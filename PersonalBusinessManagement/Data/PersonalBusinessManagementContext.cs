@@ -18,5 +18,7 @@ public class PersonalBusinessManagementContext : DbContext
         modelBuilder.Ignore<GithubRepo>();
     }
 
+    public DbSet<PersonalBusinessManagement.Models.Todo>? Todo { get; set; }
+
 
 }

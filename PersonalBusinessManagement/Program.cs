@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using PersonalBusinessManagement.Data;
+using PersonalBusinessManagement.Data.TodoData;
+using PersonalBusinessManagement.DbAccess;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +9,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContextPool<PersonalBusinessManagementContext>(options => options.UseSqlServer(
     builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddSingleton<ISqlDataAccess, SqlDataAccess>();
+builder.Services.AddSingleton<ITodoData, TodoData>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

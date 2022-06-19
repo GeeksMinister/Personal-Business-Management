@@ -1,0 +1,56 @@
+﻿@model Todo
+<!--asp-action is optional since the page has the same name as the action-->
+<form method="post" asp-action="Update">
+    <input asp-for="Id" hidden /> <!--To pass the right Id that we are targeting-->
+    <div class="border p-3">
+        <div class="form-group row">
+            <h2 class="text-black-50 pl-3">Update Task</h2>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="form-group row">
+                    <div class="col-6">
+                        <label asp-for="Name"></label>
+                    </div>
+                    <div class="col-6">
+                        <label asp-for="Description"></label>
+                    </div>
+                    <div class="col-6">
+                        <label asp-for="Priority"></label>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-6">
+                        <input id="expense" asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="col-6">
+                        <input id="expense" asp-for="Description" class="form-control" />
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                    <div class="col-6">
+                        <input id="amount" asp-for="Priority" class="form-control" />
+                        <span asp-validation-for="Priority" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-8 offset-2 row">
+                        <div class="col">
+                            <input type="submit" class="btn btn-info w-75" value="Update" />
+                        </div>
+                        <div class="col">
+                            <a asp-action="Index" class="btn btn-danger w-75">Back</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</form>
+<!--For immediate server side validation only-->
+@section scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

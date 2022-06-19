@@ -22,8 +22,8 @@ public static class GithubRepoHandler
         }
         catch (Exception e)
         {
-            await File.AppendAllTextAsync($"\n\n{errorReportPath}", "Error! Failed to retreive" +
-            $" data {DateTime.Now}\n{e.Message}");
+            await File.AppendAllTextAsync($"{errorReportPath}", "Error! Failed to retreive" +
+            $" data {DateTime.Now}\n{e.Message}\n\n");
             return null;
         }
 

@@ -1,14 +1,13 @@
-﻿@model IEnumerable<PersonalBusinessManagement.Models.Project>
+﻿@model IEnumerable<Project>
 @{
     ViewData["Title"] = "Search Results";
 }
 
-<h1>Projects</h1>
+<h1 class="text-primary">Projects</h1>
 <br />
 <br />
 @*<h4>Search</h4>
     <hr />*@
-
 <table class="table">
     @if (!Model.Any())
     {
@@ -27,7 +26,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.Delivered)
             </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
