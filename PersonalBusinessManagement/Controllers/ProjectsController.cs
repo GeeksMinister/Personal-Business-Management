@@ -1,41 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using PersonalBusinessManagement.Data;
+using PersonalBusinessManagement.Data.ProjectData;
 using PersonalBusinessManagement.Models;
 
 namespace PersonalBusinessManagement.Controllers;
 public class ProjectsController : Controller
 {
-    private readonly PersonalBusinessManagementContext _context;
+    private readonly IProjectData _projectDb;
 
-    public ProjectsController(PersonalBusinessManagementContext context)
+    public ProjectsController(IProjectData context)
     {
-        _context = context;
+        _projectDb = context;
     }
 
     // GET: Projects
     public async Task<IActionResult> Index()
     {
-        return _context.Project != null ?
-                    View(await _context.Project.ToListAsync()) :
+        return _projectDb != null ?
+                    View(await _projectDb.GetAll()) :
                     Problem("Entity set 'PersonalBusinessManagementContext.Project'  is null.");
     }
 
     // GET: Projects/Details/5
     public async Task<IActionResult> Details(int? id)
     {
-        if (id == null || _context.Project == null)
+        if (id == null || _projectDb == null)
         {
             return NotFound();
         }
 
-        var project = await _context.Project
-            .FirstOrDefaultAsync(m => m.Id == id);
+        var project = await _projectDb.GetById(id);
         if (project == null)
         {
             return NotFound();
@@ -59,8 +53,7 @@ public class ProjectsController : Controller
     {
         if (ModelState.IsValid)
         {
-            _context.Add(project);
-            await _context.SaveChangesAsync();
+            _projectDb.InsertProject(project);
             return RedirectToAction(nameof(Index));
         }
         return View(project);
@@ -69,12 +62,12 @@ public class ProjectsController : Controller
     // GET: Projects/Edit/5
     public async Task<IActionResult> Edit(int? id)
     {
-        if (id == null || _context.Project == null)
+        if (id == null || _projectDb == null)
         {
             return NotFound();
         }
 
-        var project = await _context.Project.FindAsync(id);
+        var project = await _projectDb.GetById(id);
         if (project == null)
         {
             return NotFound();
@@ -98,8 +91,7 @@ public class ProjectsController : Controller
         {
             try
             {
-                _context.Update(project);
-                await _context.SaveChangesAsync();
+                _projectDb.UpdateProject(project);
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -120,13 +112,13 @@ public class ProjectsController : Controller
     // GET: Projects/Delete/5
     public async Task<IActionResult> Delete(int? id)
     {
-        if (id == null || _context.Project == null)
+        if (id == null || _projectDb == null)
         {
             return NotFound();
         }
 
-        var project = await _context.Project
-            .FirstOrDefaultAsync(m => m.Id == id);
+        var project = await _projectDb
+            .GetById(id);
         if (project == null)
         {
             return NotFound();
@@ -140,23 +132,24 @@ public class ProjectsController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteConfirmed(int id)
     {
-        if (_context.Project == null)
+        if (_projectDb == null)
         {
             return Problem("Entity set 'PersonalBusinessManagementContext.Project'  is null.");
         }
-        var project = await _context.Project.FindAsync(id);
+        var project = await _projectDb.GetById(id);
         if (project != null)
         {
-            _context.Project.Remove(project);
+            _projectDb.DeleteProject(id);
         }
 
-        await _context.SaveChangesAsync();
         return RedirectToAction(nameof(Index));
     }
 
     private bool ProjectExists(int id)
     {
-        return (_context.Project?.Any(e => e.Id == id)).GetValueOrDefault();
+        var result = _projectDb.GetById(id);
+        return (result is null);
+
     }
 
 
@@ -167,9 +160,10 @@ public class ProjectsController : Controller
 
     public async Task<IActionResult> ShowSearchResults(string searchPhrase)
     {
-#pragma warning disable CS8602
-        var result = await _context.Project.Where(
-            proj => proj.Name.Contains(searchPhrase) || proj.Description.Contains(searchPhrase)).ToListAsync();
+        searchPhrase = searchPhrase.ToUpper();
+        var collection = await _projectDb.GetAll();
+        var result = collection.ToList().Where(
+           proj => proj.Name.ToUpper().Contains(searchPhrase) || proj.Description.ToUpper().Contains(searchPhrase));
         return View(result);
     }
 

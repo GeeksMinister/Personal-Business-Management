@@ -9,7 +9,9 @@ public class PersonalBusinessManagementContext : DbContext
     public PersonalBusinessManagementContext(
         DbContextOptions<PersonalBusinessManagementContext> options) :base(options) { }
 
-    public DbSet<Project> Project { get; set; }
+    //public DbSet<Project> Project { get; set; }
+
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -18,7 +20,6 @@ public class PersonalBusinessManagementContext : DbContext
         modelBuilder.Ignore<GithubRepo>();
     }
 
-    public DbSet<PersonalBusinessManagement.Models.Todo>? Todo { get; set; }
 
 
 }

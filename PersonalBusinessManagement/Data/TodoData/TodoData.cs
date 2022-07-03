@@ -6,7 +6,6 @@ namespace PersonalBusinessManagement.Data.TodoData;
 
 public class TodoData : ITodoData
 {
-#pragma warning disable CS8602
     private readonly ISqlDataAccess _db;
 
     public TodoData(ISqlDataAccess db)
@@ -15,37 +14,33 @@ public class TodoData : ITodoData
     }
 
     public async Task<IEnumerable<Todo>> GetAll() =>
-        await _db.LoadData<Todo>("SELECT * FROM Todo");
+        await _db.LoadData<Todo, dynamic>("SELECT * FROM Todo", new { });
 
     public async Task<Todo> GetById(int? id)
     {
 #pragma warning disable CS8603
-        var result =  await _db.LoadData<Todo>($"SELECT * FROM Todo WHERE Id = {id}");
+        var result =  await _db.LoadData<Todo, dynamic>($"SELECT * FROM Todo WHERE Id = @Id", new { Id = id });
         return result.FirstOrDefault();
     }
 
     public async Task InsertTodo(Todo todo)
     {
         await _db.SaveData($"INSERT INTO Todo (Name, Description, Priority) " +
-                           $"VALUES('{todo.Name}', '{todo.Description}', {todo.Priority})");
+                           $"VALUES(@Name, @Description, @Priority)", new 
+                           {
+                               todo.Name,
+                               todo.Description,
+                               todo.Priority
+                           });
     }
 
     public async Task UpdateTodo(Todo todo)
     {
-        string query = string.Empty; 
-        if (todo.Priority is null)
-        {
-            query = $"UPDATE Todo SET Name = '{todo.Name}', Description = '{todo.Description}'" +
-               $", Priority = NULL WHERE Id = {todo.Id}";
-        }
-        else
-        {
-            query = $"UPDATE Todo SET Name = '{todo.Name}', Description = '{todo.Description}'" +
-                           $", Priority = {todo?.Priority} WHERE Id = {todo.Id}";
-        }
-        await _db.SaveData(query);
+        string query = $"UPDATE Todo SET Name = @Name, Description = @Description, Priority = @Priority WHERE Id = @Id";
+
+        await _db.SaveData(query, todo);
     }
 
     public async Task DeleteTodo(int? id) =>
-        await _db.SaveData($"DELETE FROM Todo WHERE Id = {id}");
+        await _db.SaveData($"DELETE FROM Todo WHERE Id = @Id", new { Id = id });
 }

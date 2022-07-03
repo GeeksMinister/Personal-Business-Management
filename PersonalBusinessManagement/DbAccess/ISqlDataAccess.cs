@@ -2,6 +2,6 @@
 
 public interface ISqlDataAccess
 {
-    Task<IEnumerable<T>> LoadData<T>(string sqlQuery);
-    Task SaveData(string sqlQuery);
+    Task<IEnumerable<T>> LoadData<T, U>(string sqlQuery, U parameters);
+    Task SaveData<T>(string sqlQuery, T parameters);
 }
