@@ -8,8 +8,9 @@ public class ApiController : Controller
 {
     public async Task<IActionResult> Index()
     {
-        return View((await CurrencyFileHandler.GetExchangeRates(),
-                     await GithubRepoHandler.GetRepos()));
+        var exchangeRates = await CurrencyFileHandler.GetExchangeRates();
+        var githubRepo = await GithubRepoHandler.GetRepos();
+        return View((exchangeRates, githubRepo));
     }
 
     public async Task<IActionResult> UpdateExchangeRate()

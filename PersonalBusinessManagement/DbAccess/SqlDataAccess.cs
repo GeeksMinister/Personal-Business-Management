@@ -14,19 +14,19 @@ public class SqlDataAccess : ISqlDataAccess
         _config = confic;
     }
 
-    public async Task<IEnumerable<T>> LoadData<T>(string query)
+    public async Task<IEnumerable<T>> LoadData<T, U>(string query, U parameters)
     {
                                 //Or:    new SqliteConnection("Data Source= Data\\ToDo.DB.sqlite");
-        using IDbConnection connection = new SqliteConnection(_config.GetConnectionString("TodoDbConnection"));
+        using IDbConnection connection = new SqliteConnection(_config.GetConnectionString("DefaultConnection"));
 
-        return await connection.QueryAsync<T>(query);
+        return await connection.QueryAsync<T>(query, parameters);
     }
 
-    public async Task SaveData(string query)
+    public async Task SaveData<T>(string query, T parameters)
     {
-        using IDbConnection connection = new SqliteConnection(_config.GetConnectionString("TodoDbConnection"));
+        using IDbConnection connection = new SqliteConnection(_config.GetConnectionString("DefaultConnection"));
 
-        await connection.ExecuteAsync(query);
+        await connection.ExecuteAsync(query, parameters);
     }
 
 }

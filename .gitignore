@@ -363,3 +363,4 @@ MigrationBackup/
 FodyWeavers.xsd
 /PersonalBusinessManagement/Data/ExchangeRates/ErrorReport.txt
 /PersonalBusinessManagement/Data/GithubRepos/ErrorReport.txt
+/PersonalBusinessManagement/Data/ToDo.DB.sqbpro
