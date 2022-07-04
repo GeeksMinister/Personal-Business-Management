@@ -5,12 +5,12 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 
-namespace PersonalBusinessManagement.Data.GithubRepos;
+
 
 public static class GithubRepoHandler
 {
     private const string githubUri = "https://api.github.com/users/GeeksMinister/repos";
-    private const string errorReportPath = "Data\\GithubRepos\\ErrorReport.txt";
+    private const string errorReportPath = "DataAccess\\Data\\GithubRepos\\ErrorReport.txt";
     private static HttpClient client = new HttpClient();
     public static async Task<List<GithubRepo>?> GetRepos()
     {

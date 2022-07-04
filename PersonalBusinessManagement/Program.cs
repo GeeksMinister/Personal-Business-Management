@@ -1,8 +1,3 @@
-using Microsoft.EntityFrameworkCore;
-using PersonalBusinessManagement.Data;
-using PersonalBusinessManagement.Data.TodoData;
-using PersonalBusinessManagement.Data.ProjectData;
-using PersonalBusinessManagement.DbAccess;
 
 var builder = WebApplication.CreateBuilder(args);
 

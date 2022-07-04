@@ -364,3 +364,6 @@ FodyWeavers.xsd
 /PersonalBusinessManagement/Data/ExchangeRates/ErrorReport.txt
 /PersonalBusinessManagement/Data/GithubRepos/ErrorReport.txt
 /PersonalBusinessManagement/Data/ToDo.DB.sqbpro
+/PersonalBusinessManagement/DataAccess/Data/ExchangeRates/ErrorReport.txt
+/PersonalBusinessManagement/DataAccess/Data/GithubRepos/ErrorReport.txt
+/PersonalBusinessManagement/DataAccess/Data/ToDo.DB.sqbpro

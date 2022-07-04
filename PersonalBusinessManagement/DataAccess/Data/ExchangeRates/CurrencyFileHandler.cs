@@ -2,13 +2,11 @@
 using System.Text.Json;
 using PersonalBusinessManagement.Models;
 
-namespace PersonalBusinessManagement.Data.ExchangeRates;
-
 public static class CurrencyFileHandler
 {
-    private const string ExchangeRatesPath = "Data\\ExchangeRates\\ExchangeRates.json";
-    private const string apiKeyPath = "Data\\ExchangeRates\\free - Copy.currconv.txt";
-    private const string errorReportPath = "Data\\ExchangeRates\\ErrorReport.txt";
+    private const string ExchangeRatesPath = "DataAccess\\Data\\ExchangeRates\\ExchangeRates.json";
+    private const string apiKeyPath = "DataAccess\\Data\\ExchangeRates\\free - Copy.currconv.txt";
+    private const string errorReportPath = "DataAccess\\Data\\ExchangeRates\\ErrorReport.txt";
     public static async Task<Currency?> GetExchangeRates()
     {
         var fileContent = await File.ReadAllTextAsync(ExchangeRatesPath);

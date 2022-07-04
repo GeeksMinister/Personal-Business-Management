@@ -1,8 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PersonalBusinessManagement.Data.ExchangeRates;
-using PersonalBusinessManagement.Data.GithubRepos;
-
-namespace PersonalBusinessManagement.Controllers;
 
 public class ApiController : Controller
 {

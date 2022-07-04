@@ -1,8 +1,5 @@
 ﻿using PersonalBusinessManagement.Models;
 
-
-namespace PersonalBusinessManagement.Data.TodoData;
-
 public interface ITodoData
 {
     Task<IEnumerable<Todo>> GetAll();

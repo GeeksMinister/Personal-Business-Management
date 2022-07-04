@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PersonalBusinessManagement.Data.TodoData;
 using PersonalBusinessManagement.Models;
 
-namespace PersonalBusinessManagement.Controllers;
 public class TodoController : Controller
 {
     private readonly ITodoData _todoDb;

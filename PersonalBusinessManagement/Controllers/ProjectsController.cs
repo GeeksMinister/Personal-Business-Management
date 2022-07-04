@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using PersonalBusinessManagement.Data.ProjectData;
 using PersonalBusinessManagement.Models;
 
 namespace PersonalBusinessManagement.Controllers;
@@ -93,7 +91,7 @@ public class ProjectsController : Controller
             {
                 _projectDb.UpdateProject(project);
             }
-            catch (DbUpdateConcurrencyException)
+            catch (Exception)
             {
                 if (!ProjectExists(project.Id))
                 {
@@ -149,22 +147,17 @@ public class ProjectsController : Controller
     {
         var result = _projectDb.GetById(id);
         return (result is null);
-
     }
-
 
     public IActionResult Search()
     {
         return View();
     }
 
-    public async Task<IActionResult> ShowSearchResults(string searchPhrase)
+    public async Task<IActionResult> ShowSearchResults(string searchTerm)
     {
-        searchPhrase = searchPhrase.ToUpper();
-        var collection = await _projectDb.GetAll();
-        var result = collection.ToList().Where(
-           proj => proj.Name.ToUpper().Contains(searchPhrase) || proj.Description.ToUpper().Contains(searchPhrase));
-        return View(result);
+        
+        return View(await _projectDb.SearchProject(searchTerm));
     }
 
 

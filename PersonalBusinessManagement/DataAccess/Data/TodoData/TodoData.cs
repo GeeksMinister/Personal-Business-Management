@@ -1,8 +1,6 @@
 ﻿
-using PersonalBusinessManagement.DbAccess;
 using PersonalBusinessManagement.Models;
 
-namespace PersonalBusinessManagement.Data.TodoData;
 
 public class TodoData : ITodoData
 {

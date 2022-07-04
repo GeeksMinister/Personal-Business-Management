@@ -8,21 +8,21 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="Data\ExchangeRates\ExchangeRates.json" />
+    <Content Remove="DataAccess\Data\ExchangeRates\ExchangeRates.json" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Data\ToDo.DB.sqlite" />
+    <None Remove="DataAccess\Data\ToDo.DB.sqlite" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Data\ToDo.DB.sqlite">
+    <Content Include="DataAccess\Data\ToDo.DB.sqlite">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Data\ExchangeRates\ExchangeRates.json">
+    <None Include="DataAccess\Data\ExchangeRates\ExchangeRates.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Views\Todo\Create.cshtml" />
@@ -31,12 +31,6 @@
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.0.123" />
     <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="6.0.6" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.5" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.5" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.5">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.6" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="SQLitePCLRaw.bundle_e_sqlite3" Version="2.1.0" />
@@ -44,7 +38,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Data\ExchangeRates\free - Copy.currconv.txt">
+    <None Update="DataAccess\Data\ExchangeRates\free - Copy.currconv.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

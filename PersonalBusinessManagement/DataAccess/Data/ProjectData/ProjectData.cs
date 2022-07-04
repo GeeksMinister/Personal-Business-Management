@@ -1,8 +1,6 @@
 ﻿
-using PersonalBusinessManagement.DbAccess;
 using PersonalBusinessManagement.Models;
 
-namespace PersonalBusinessManagement.Data.ProjectData;
 
 public class ProjectData : IProjectData
 {
@@ -42,4 +40,12 @@ public class ProjectData : IProjectData
 
     public async Task DeleteProject(int? id) =>
         await _db.SaveData($"DELETE FROM Project WHERE Id = @Id", new { Id = id });
+
+    public async Task<IEnumerable<Project>> SearchProject(string searchTerm)
+    {
+        var result = await _db.LoadData<Project, dynamic>("SELECT * FROM Project WHERE " +
+            "Name LIKE '%' || @searchTerm || '%' OR Description LIKE '%' || @searchTerm || '%'"
+            , new { searchTerm });
+        return result;
+    }
 }
