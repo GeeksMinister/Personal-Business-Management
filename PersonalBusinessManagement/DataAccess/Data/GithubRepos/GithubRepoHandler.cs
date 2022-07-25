@@ -17,8 +17,7 @@ public static class GithubRepoHandler
         try
         {
             client.DefaultRequestHeaders.Add("User-Agent", "PersonalBusinessManagement");
-            var response = await client.GetStringAsync(githubUri);
-           return JsonConvert.DeserializeObject<List<GithubRepo>>(response);
+            return await client.GetFromJsonAsync<List<GithubRepo>>(githubUri);
         }
         catch (Exception e)
         {
